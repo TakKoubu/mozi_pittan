@@ -25,12 +25,11 @@ namespace :execute_mozi_pittan_game do
       break if word_to_guess == guessed_status
     end
 
-    puts 'ゲーム終了'
-    exit
+    puts 'ゲーム終了' & exit
   end
 end
 
-# 文字の推測の処理と結果表示
+# 文字の推測と処理、および結果表示
 def process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit, guessed_status)
   if word_to_guess.include?(input_alphabet)
     warn_of_pre_filled_character(guessed_status, input_alphabet)
