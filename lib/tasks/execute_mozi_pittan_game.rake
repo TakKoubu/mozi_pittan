@@ -3,12 +3,13 @@
 namespace :execute_mozi_pittan_game do
   desc '文字合わせゲームの起動および実行'
   task execute_game: :environment do
-    puts 'もじピッタンゲーム'
-
     failure_limit = 5
     animals = %w[dog cat elephant lion giraffe dolphin tiger penguin koala kangaroo]
     word_to_guess = animals[rand(0..9)].chars
     guessed_status = Array.new(word_to_guess.size, '_')
+    
+    puts 'もじピッタンゲームstart'
+    show_the_result(failure_limit, guessed_status)
 
     while failure_limit.positive?
       puts "半角英文字を1文字入力してください\n\n"
