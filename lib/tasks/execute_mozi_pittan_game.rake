@@ -20,7 +20,7 @@ namespace :execute_mozi_pittan_game do
         failure_limit = process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit,
                                                             guessed_status)
       else
-        (puts '無効な入力です')
+        puts '無効な入力です'
       end
       break if word_to_guess == guessed_status
     end
