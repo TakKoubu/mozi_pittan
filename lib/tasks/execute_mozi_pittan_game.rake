@@ -7,7 +7,7 @@ namespace :execute_mozi_pittan_game do
     animals = %w[dog cat elephant lion giraffe dolphin tiger penguin koala kangaroo]
     word_to_guess = animals[rand(0..9)].chars
     guessed_status = Array.new(word_to_guess.size, '_')
-    
+
     puts 'もじピッタンゲームstart'
     show_the_result(failure_limit, guessed_status)
 

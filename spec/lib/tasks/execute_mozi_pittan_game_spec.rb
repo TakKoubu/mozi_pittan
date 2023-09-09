@@ -1,7 +1,9 @@
-require 'rails_helper'
-require 'rake'
+# frozen_string_literal: true
 
-describe 'rake/tasks/execute_mozi_pittan_game' do
+require 'rake'
+require '~/lib/tasks/execute_mozi_pittan_game'
+
+describe 'execute_mozi_pittan_game' do
   before(:all) do
     @rake = Rake::Application.new
     Rake.application = @rake
@@ -9,14 +11,15 @@ describe 'rake/tasks/execute_mozi_pittan_game' do
     Rake::Task.define_task(:environment)
   end
 
-  入力値 = ['c','c','a','a','t']
-  入力値 = ['q','q','q','q','q']
+  word_to_guess = %w[d o g]
+  guessed_status = ['_' * 3]
+  failure_limit = 5
 
   describe 'execute_game' do
     context 'failure_limitが1以上の時' do
       context '`半角英文字を1文字入力してください`と出力されること' do
       end
-      
+
       context 'valid_flgが有効の場合' do
         it 'process_character_guess_and_resultsが実行されること' do
         end
@@ -26,7 +29,7 @@ describe 'rake/tasks/execute_mozi_pittan_game' do
         it '`無効な入力です`と出力されること' do
         end
       end
-  
+
       context 'word_to_guessを全て言い当てた場合' do
         it '`ゲーム終了`と出力されexitすること' do
         end
@@ -41,7 +44,12 @@ describe 'rake/tasks/execute_mozi_pittan_game' do
 
   describe 'process_character_guess_and_results' do
     context 'word_to_guessにinput_alphabetが含まれる場合' do
+      input_alphabet = 'o'
+      new_failure_limit = process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit,
+                                                              guessed_status)
       it 'failure_limitの数は変化しないこと' do
+        expect(guessed_status).to eq(%w[a _ _])
+        expect(new_failure_limit).to eq(5)
       end
       it 'failure_limitを返すこと' do
       end
