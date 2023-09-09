@@ -34,9 +34,9 @@ dbreset:
 	${DOCKER_COMPOSE_RUN} app rails db:migrate:reset
 	${DOCKER_COMPOSE_RUN} app rails db:migrate:reset RAILS_ENV=test
 
-test:
-	bin/rspec
-	
+rspec:
+	${DOCKER_COMPOSE_RUN} -e RAILS_ENV=test app rspec $(args)
+
 start:
-	rails execute_mozi_pittan_game:execute_game
+	${DOCKER_COMPOSE_RUN} app rails execute_mozi_pittan_game:execute_game
 
