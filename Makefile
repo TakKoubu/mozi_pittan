@@ -1,6 +1,9 @@
 RUN := run --rm
 DOCKER_COMPOSE_RUN := docker-compose $(RUN)
 
+start:
+	${DOCKER_COMPOSE_RUN} app rails execute_mozi_pittan_game:execute_game
+
 init:
 	@make build
 	@make install
@@ -33,3 +36,10 @@ dbmigrate:
 dbreset:
 	${DOCKER_COMPOSE_RUN} app rails db:migrate:reset
 	${DOCKER_COMPOSE_RUN} app rails db:migrate:reset RAILS_ENV=test
+
+rspec:
+	${DOCKER_COMPOSE_RUN} -e RAILS_ENV=test app rspec $(args)
+
+rubocop:
+	${DOCKER_COMPOSE_RUN} -e RAILS_ENV=test app rubocop -A
+
