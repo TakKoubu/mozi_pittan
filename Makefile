@@ -28,7 +28,6 @@ install:
 dbcreate:
 	${DOCKER_COMPOSE_RUN} app rails db:create
 
-
 dbmigrate:
 	${DOCKER_COMPOSE_RUN} app rails db:migrate
 	${DOCKER_COMPOSE_RUN} app rails db:migrate RAILS_ENV=test
