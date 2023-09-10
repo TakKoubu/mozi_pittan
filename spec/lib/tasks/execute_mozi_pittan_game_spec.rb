@@ -42,16 +42,16 @@ describe 'execute_mozi_pittan_game' do
     context '失敗可能回数が0の場合' do
       let(:failure_limit) { 0 }
 
-      it '失敗可能回数の変化はしないこと' do
+      it '失敗可能回数も推測ステータスもこれ以上変化しなくなること' do
         expect { subject }.not_to(change { failure_limit })
+        expect { subject }.not_to(change { guessed_status })
       end
     end
   end
 
   describe 'warn_of_invalid_input' do
-    subject { warn_of_invalid_input(valid_flg) }
+    subject { warn_of_invalid_input }
     let(:warnig_message) { "**************\n無効な入力です\n半角英文字を入力してください\n**************\n\n" }
-    let(:valid_flg) { false }
 
     it '`無効な入力です`と出力されること' do
       expect { subject }.to output(warnig_message).to_stdout

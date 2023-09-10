@@ -24,15 +24,13 @@ def validate_and_process_input(word_to_guess, failure_limit, guessed_status)
       failure_limit = process_character_guess_and_indicate_results(word_to_guess, input_alphabet, failure_limit,
                                                                    guessed_status)
     else
-      warn_of_invalid_input(valid_flg)
+      warn_of_invalid_input
     end
   end
 end
 
 # 入力無効文字への警告
-def warn_of_invalid_input(valid_flg)
-  return if valid_flg
-
+def warn_of_invalid_input
   puts "**************\n"
   puts "無効な入力です\n"
   puts "半角英文字を入力してください\n"
