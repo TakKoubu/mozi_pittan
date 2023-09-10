@@ -1,6 +1,9 @@
 RUN := run --rm
 DOCKER_COMPOSE_RUN := docker-compose $(RUN)
 
+start:
+	${DOCKER_COMPOSE_RUN} app rails execute_mozi_pittan_game:execute_game
+
 init:
 	@make build
 	@make install
@@ -39,7 +42,4 @@ rspec:
 
 rubocop:
 	${DOCKER_COMPOSE_RUN} -e RAILS_ENV=test app rubocop -A
-
-start:
-	${DOCKER_COMPOSE_RUN} app rails execute_mozi_pittan_game:execute_game
 

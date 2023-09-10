@@ -5,27 +5,28 @@ namespace :execute_mozi_pittan_game do
   task execute_game: :environment do
     failure_limit = 5
     animals = %w[dog cat elephant lion giraffe dolphin tiger penguin koala kangaroo]
-    word_to_guess = animals[rand(0..9)].chars
+    word_to_guess = animals.sample.chars
     guessed_status = Array.new(word_to_guess.size, '_')
-
-    puts 'もじピッタンゲームstart'
+    
     show_the_result(failure_limit, guessed_status)
 
     while failure_limit.positive?
-      puts "半角英文字を1文字入力してください\n\n"
-
-      input_alphabet = $stdin.gets.chomp.downcase
-      valid_flg = input_alphabet.match?(/^[a-z]$/)
-      if valid_flg
-        failure_limit = process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit,
-                                                            guessed_status)
-      else
-        puts '無効な入力です'
-      end
+      failure_limit = validate_and_process_input(word_to_guess, failure_limit, guessed_status)
       break if word_to_guess == guessed_status
     end
+    puts 'ゲーム終了'
+    exit
+  end
+end
 
-    puts 'ゲーム終了' & exit
+# 入力の検証と処理の実行
+def validate_and_process_input(word_to_guess, failure_limit, guessed_status)
+  input_alphabet = $stdin.gets.chomp.downcase
+  valid_flg = input_alphabet.match?(/^[a-z]$/)
+  if valid_flg
+    process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit, guessed_status)
+  else
+    puts '無効な入力です'
   end
 end
 
