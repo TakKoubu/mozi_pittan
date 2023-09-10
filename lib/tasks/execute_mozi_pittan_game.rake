@@ -7,13 +7,9 @@ namespace :execute_mozi_pittan_game do
     animals = %w[dog cat elephant lion giraffe dolphin tiger penguin koala kangaroo]
     word_to_guess = animals.sample.chars
     guessed_status = Array.new(word_to_guess.size, '_')
-    
-    show_the_result(failure_limit, guessed_status)
 
-    while failure_limit.positive?
-      failure_limit = validate_and_process_input(word_to_guess, failure_limit, guessed_status)
-      break if word_to_guess == guessed_status
-    end
+    show_the_result(failure_limit, guessed_status)
+    validate_and_process_input(word_to_guess, failure_limit, guessed_status)
     puts 'ゲーム終了'
     exit
   end
@@ -21,17 +17,30 @@ end
 
 # 入力の検証と処理の実行
 def validate_and_process_input(word_to_guess, failure_limit, guessed_status)
-  input_alphabet = $stdin.gets.chomp.downcase
-  valid_flg = input_alphabet.match?(/^[a-z]$/)
-  if valid_flg
-    process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit, guessed_status)
-  else
-    puts '無効な入力です'
+  while failure_limit.positive? && word_to_guess != guessed_status
+    input_alphabet = $stdin.gets.chomp.downcase
+    valid_flg = input_alphabet.match?(/^[a-z]$/)
+    if valid_flg
+      failure_limit = process_character_guess_and_indicate_results(word_to_guess, input_alphabet, failure_limit,
+                                                                   guessed_status)
+    else
+      warn_of_invalid_input(valid_flg)
+    end
   end
 end
 
+# 入力無効文字への警告
+def warn_of_invalid_input(valid_flg)
+  return if valid_flg
+
+  puts "**************\n"
+  puts "無効な入力です\n"
+  puts "半角英文字を入力してください\n"
+  puts "**************\n\n"
+end
+
 # 文字の推測と処理、および結果表示
-def process_character_guess_and_results(word_to_guess, input_alphabet, failure_limit, guessed_status)
+def process_character_guess_and_indicate_results(word_to_guess, input_alphabet, failure_limit, guessed_status)
   if word_to_guess.include?(input_alphabet)
     warn_of_pre_filled_character(guessed_status, input_alphabet)
     replace_character(word_to_guess, input_alphabet, guessed_status)
@@ -57,7 +66,7 @@ def replace_character(word_to_guess, input_alphabet, guessed_status)
   matched_indexes.each { |idx| guessed_status[idx] = input_alphabet }
 end
 
-# 現在の予測状態と残り入力可能回数の表示
+# 現在の予測ステータスと残り入力可能回数の表示
 def show_the_result(failure_limit, guessed_status)
   puts "--------------\n"
   puts "#{guessed_status.join}\n"
