@@ -22,7 +22,7 @@ $ make start
 この状態で、ユーザーはアルファベットを1文字入力します。
 
 ## デモ動画
-https://github.com/TakKoubu/mozi_pittan/assets/48621700/1e4460a3-6809-42c5-bad4-4bde3da085f1
+https://github.com/TakKoubu/mozi_pittan/assets/48621700/ddead21a-62c2-4ec4-9cb8-69789cd64633
 
 ## 仕様 & コードについて
 - 単語はすべて英語の名詞とし、最低でも10個以上からランダムに選ばれます
